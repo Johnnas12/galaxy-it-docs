@@ -1,0 +1,1 @@
+## Galaxy Interactive Tools Configurations

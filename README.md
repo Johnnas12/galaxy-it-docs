@@ -96,6 +96,17 @@ galaxy:
   interactivetools_upstream_proxy: false
 ```
 
+You might come across a couple of minor issues:
+- galaxy database schema being outdated or not initialized for interactive tools.
+
+Run: 
+
+```
+    scripts/manage_db.py upgrade
+```
+
+- If on wsl docker might fail to pull images because it attempts to use ipv6, explicitly configure it to use ipv4.
+
 ---
 
 ## Summary

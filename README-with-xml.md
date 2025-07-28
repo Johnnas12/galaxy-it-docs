@@ -15,7 +15,7 @@ This guide walks you through the setup process required to enable **Galaxy Inter
 
 ---
 
-## Step 1: Configure `job_conf.yml`
+## Step 1: Configure `job_conf.xml`
 
 ###  File Location:
 - `config/job_conf.xml`
@@ -24,45 +24,40 @@ If the file doesn’t exist, you can create it in one of the following ways:
 
 ```bash
 # Method 1: Copy from sample
-cp config/job_conf.sample.yml config/job_conf.yml
+cp config/job_conf.sample config/job_conf.xml
 
 # Method 2: Create a new file manually
-touch config/job_conf.yml
+touch config/job_conf.xml
 ```
 
-### Insert the Following YML Configuration:
+### Insert the Following XML Configuration:
 
-```yml
-
-runners:
-  local:
-    load: galaxy.jobs.runners.local:LocalJobRunner
-    workers: 4
-
-execution:
-  default: docker_dispatch
-  environments:
-    local:
-      runner: local
-
-    docker_local:
-      runner: local
-      docker_enabled: true
-      docker_volumes: $defaults
-      docker_sudo: false
-      docker_net: bridge
-      docker_auto_rm: false
-      #docker_set_user: $UID
-      docker_set_user:
-      docker_run_extra_arguments: --add-host localhost:host-gateway
-      require_container: true
-      container_monitor: true
-
-    docker_dispatch:
-      runner: dynamic
-      type: docker_dispatch
-      docker_destination_id: docker_local
-      default_destination_id: local
+```xml
+<?xml version="1.0"?>
+<job_conf>
+    <plugins>
+        <plugin id="local" type="runner" load="galaxy.jobs.runners.local:LocalJobRunner" workers="4"/>
+    </plugins>
+    <destinations default="docker_dispatch">
+        <destination id="local" runner="local"/>
+        <destination id="docker_local" runner="local">
+            <param id="docker_enabled">true</param>
+            <param id="docker_volumes">$defaults</param>
+            <param id="docker_sudo">false</param>
+            <param id="docker_net">bridge</param>
+            <param id="docker_auto_rm">false</param>
+            <param id="require_container">true</param>
+            <param id="container_monitor">true</param>
+            <param id="docker_set_user"></param>
+            <param id="docker_run_extra_arguments">--add-host localhost:host-gateway</param>
+        </destination>
+        <destination id="docker_dispatch" runner="dynamic">
+            <param id="type">docker_dispatch</param>
+            <param id="docker_destination_id">docker_local</param>
+            <param id="default_destination_id">local</param>
+        </destination>
+    </destinations>
+</job_conf>
 ```
 
 ---

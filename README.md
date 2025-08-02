@@ -83,23 +83,21 @@ cp config/galaxy.yml.sample config/galaxy.yml
 Search for the following keys in the `galaxy.yml` file and make sure they are set to these values:
 
 ```yaml
-gravity:
-  gx_it_proxy:
-    enable: true
-    port: 4002
+  gx_it_proxy:                                                                      # 177
+    enable: true                                                                    # 180
+    port: 4002                                                                      # 189
 
-galaxy:
-  interactivetools_enable: true
-  interactivetools_map: database/interactivetools_map.sqlite
+  galaxy:
+    interactivetools_enable: true                                                   # 1344
+    interactivetools_proxy_host: localhost:4002                                     # 1353
+    interactivetools_map: interactivetools_map.sqlite                               # 1362
 
-  outputs_to_working_directory: true
-
-  galaxy_infrastructure_url: http://localhost:8080
-  interactivetools_proxy_host: localhost:4002
-
+ galaxy_infrastructure_url: http://localhost:8080                                   # 1438
+ 
+outputs_to_working_directory: true                                                  # 2576
+ 
   # Essential: Prevents 404 errors when launching interactive tools
-  interactivetools_upstream_proxy: false
-```
+  interactivetools_upstream_proxy: false```
 
 You might come across a couple of minor issues:
 - galaxy database schema being outdated or not initialized for interactive tools.

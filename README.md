@@ -97,7 +97,8 @@ Search for the following keys in the `galaxy.yml` file and make sure they are se
 outputs_to_working_directory: true                                                  # 2576
  
   # Essential: Prevents 404 errors when launching interactive tools
-  interactivetools_upstream_proxy: false```
+  interactivetools_upstream_proxy: false
+```
 
 You might come across a couple of minor issues:
 - galaxy database schema being outdated or not initialized for interactive tools.
